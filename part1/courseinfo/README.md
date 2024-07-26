@@ -55,7 +55,7 @@ export default App
 ```
 # 1.2
 ![image](https://github.com/user-attachments/assets/6ad396fd-e078-4bbc-bd94-4489632057bf)
-# Course Information step 3: App.jsx
+# step 3: App.jsx
 ```
 const App = () => {
   const course = 'Half Stack application development'

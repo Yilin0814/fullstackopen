@@ -1,3 +1,12 @@
+# step 1: main.jsx
+```python
+import ReactDOM from 'react-dom/client'
+
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+```
+
 # step 2: App.jsx
 
 ```python

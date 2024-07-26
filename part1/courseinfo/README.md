@@ -1,3 +1,6 @@
+
+https://fullstackopen.com/en/part1/java_script#exercises-1-3-1-5
+
 # step 1: main.jsx
 ```python
 import ReactDOM from 'react-dom/client'
@@ -85,6 +88,43 @@ const App = () => {
         {part3.name} {part3.exercises}
       </p>
       <p>Number of exercises {part1.exercises + part2.exercises + part3.exercises}</p>
+    </div>
+  )
+}
+export default App
+```
+# step 4: App.jsx
+```
+const App = () => {
+  const course = 'Half Stack application development'
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ]
+  console.log('Content: ',parts)
+  return (
+    <div>
+      <h1>{course}</h1>
+      <p>
+        {parts[0].name} {parts[0].exercises}
+      </p>
+      <p>
+        {parts[1].name} {parts[1].exercises}
+      </p>
+      <p>
+        {parts[2].name} {parts[2].exercises}
+      </p>
+      <p>Number of exercises {parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>
     </div>
   )
 }

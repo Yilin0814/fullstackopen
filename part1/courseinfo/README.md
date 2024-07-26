@@ -1,8 +1,57 @@
-# React + Vite
+# step 1: main.jsx
+```python
+import ReactDOM from 'react-dom/client'
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+import App from './App'
 
-Currently, two official plugins are available:
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# step 2: App.jsx
+
+```python
+const Header = (props) => {
+  console.log('Header: ',props)
+  return (
+      <h1>{props.name}</h1>
+  )
+}
+
+const Content = (props) => {
+  console.log('Content: ',props)
+  return (
+      <p>{props.name} {props.number}</p>
+  )
+}
+
+const Total = (props) => {
+  console.log('Content: ',props)
+  return (
+      <p>Number of exercises {props.number}</p>
+  )
+}
+
+const App = () => {
+  const course = 'Half Stack application development'
+  const part1 = 'Fundamentals of React'
+  const exercises1 = 10
+  const part2 = 'Using props to pass data'
+  const exercises2 = 7
+  const part3 = 'State of a component'
+  const exercises3 = 14
+
+  return (
+    <div>
+      <Header name={course}/>
+      <Content name={part1} number={exercises1}/>
+      <Content name={part2} number={exercises2}/>
+      <Content name={part3} number={exercises3}/>
+      <Total number={exercises1 + exercises2 + exercises3}/>
+    </div>
+  )
+}
+
+export default App
+```
+# final
+![image](https://github.com/user-attachments/assets/6ad396fd-e078-4bbc-bd94-4489632057bf)

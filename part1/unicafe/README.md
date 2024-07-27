@@ -1,8 +1,39 @@
-# React + Vite
+# 1.6: unicafe step 1
+```
+const App = () => {
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const [allClicks, setAll] = useState([])
+  const [total, setTotal] = useState(0)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  const handleGoodClick = () => {
+    setGood(good + 1)
+    setTotal(good+1+bad+neutral)
+  }
+  const handleNeutralClick = () => {
+    setNeutral(neutral+1)
+    setTotal(good+1+bad+neutral)
+  }
 
-Currently, two official plugins are available:
+  const handleBadClick = () => {
+    setBad(bad + 1)
+    setTotal(good+1+bad+neutral)
+  }
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  console.log(good,neutral, bad, total)
+  return (
+    <div>
+      <h1>give feedback</h1>
+      
+      <button onClick={handleGoodClick}>good</button>
+      <button onClick={handleNeutralClick}>neutral</button>
+      <button onClick={handleBadClick}>bad</button>
+      <h1>statistics</h1>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+    </div>
+  )
+}
+```

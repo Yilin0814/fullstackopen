@@ -5,7 +5,8 @@ cd unicafe
 npm install
 npm run dev
 ```
-# 1.6: unicafe step 1
+# 1.6: unicafe step 1 
+App.jsx
 ```
 import { useState } from 'react'
 const App = () => {
@@ -45,4 +46,12 @@ const App = () => {
   )
 }
 export default App
+```
+main.jsx
+```
+import ReactDOM from 'react-dom/client'
+
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 ```

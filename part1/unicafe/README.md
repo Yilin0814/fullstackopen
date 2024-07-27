@@ -1,5 +1,13 @@
+Terminal
+```
+npm create vite@latest unicafe -- --template react
+cd unicafe
+npm install
+npm run dev
+```
 # 1.6: unicafe step 1
 ```
+import { useState } from 'react'
 const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
@@ -36,4 +44,5 @@ const App = () => {
     </div>
   )
 }
+export default App
 ```

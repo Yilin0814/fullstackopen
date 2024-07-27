@@ -56,7 +56,7 @@ import App from './App'
 ReactDOM.createRoot(document.getElementById('root')).render(<App />)
 ```
 
-1.11*: unicafe step 6
+# 1.11*: unicafe step 6
 ```
 import React, { useState } from 'react';
 

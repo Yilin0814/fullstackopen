@@ -4,6 +4,7 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -15,13 +16,34 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
-  // const [selected, setSelected] = useState(0)
-  const rint = getRandomInt(0,7)
+
+  const handleNextAnecdotesClick = () => {
+    const randomInt1= getRandomInt(0,7)
+    setRint(randomInt1)
+    setVote_p('has '+points[randomInt1]+'votes')
+  }
+
+  const handleVoteClick = () =>{
+    points[rint] = points[rint] + 1
+    console.log(points)
+    setPoints(points)
+    setVote_p('has '+points[rint]+'votes')
+  }
+  
+
+
+  const [rint,setRint] = useState(getRandomInt(0,7))
   console.log(rint)
+
+  const [points, setPoints] = useState([0,0,0,0,0,0,0,0])
+  const [vote_p,setVote_p] = useState('has '+points[rint]+' votes') 
+
   return (
     <div>
-      {anecdotes[rint]}
+      <p>{anecdotes[rint]}</p>
+      <p> {vote_p}</p>
+      <button onClick={handleVoteClick}>vote</button>
+      <button onClick={handleNextAnecdotesClick}>next anecdotes</button>
     </div>
   )
 }

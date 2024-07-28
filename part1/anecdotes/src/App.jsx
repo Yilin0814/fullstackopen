@@ -31,11 +31,13 @@ const App = () => {
   }
   
 
-
+  //rint random int 
   const [rint,setRint] = useState(getRandomInt(0,7))
   console.log(rint)
 
   const [points, setPoints] = useState([0,0,0,0,0,0,0,0])
+  
+  //vote information in <p>
   const [vote_p,setVote_p] = useState('has '+points[rint]+' votes') 
 
   return (

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -15,39 +16,49 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
-  ]
+  ];
 
-  const handleNextAnecdotesClick = () => {
-    const randomInt1= getRandomInt(0,7)
-    setRint(randomInt1)
-    setVote_p('has '+points[randomInt1]+'votes')
-  }
+  // State to keep track of the selected anecdote index
+  const [selected, setSelected] = useState(getRandomInt(0, anecdotes.length - 1));
+  // State to keep track of the selected anecdote index
+  const [selectedPoints, setSelectedPoints] = useState('has 0 votes');
+  // State to keep track of votes for each anecdote
+  const [points, setPoints] = useState(new Array(anecdotes.length).fill(0));
+  // State to keep track of the anecdote with the most votes
+  const [mostVotes, setMostVotes] = useState(0);
 
-  const handleVoteClick = () =>{
-    points[rint] = points[rint] + 1
-    console.log(points)
-    setPoints(points)
-    setVote_p('has '+points[rint]+'votes')
-  }
-  
+  // Handler to get the next anecdote
+  const handleNextAnecdote = () => {
+    const randomIndex = getRandomInt(0, anecdotes.length - 1);
+    setSelected(randomIndex);
+    setSelectedPoints('has '+points[randomIndex]+' votes')
+  };
 
-  //rint random int 
-  const [rint,setRint] = useState(getRandomInt(0,7))
-  console.log(rint)
+  // Handler to vote for the current anecdote
+  const handleVote = () => {
+    const newPoints = points;
+    newPoints[selected] += 1;
+    setPoints(newPoints);
+    setSelectedPoints('has '+newPoints[selected] +' votes')
 
-  const [points, setPoints] = useState([0,0,0,0,0,0,0,0])
-  
-  //vote information in <p>
-  const [vote_p,setVote_p] = useState('has '+points[rint]+' votes') 
+    // Check if the current anecdote has the most votes
+    if (newPoints[selected] > newPoints[mostVotes]) {
+      setMostVotes(selected);
+    }
+  };
 
   return (
     <div>
-      <p>{anecdotes[rint]}</p>
-      <p> {vote_p}</p>
-      <button onClick={handleVoteClick}>vote</button>
-      <button onClick={handleNextAnecdotesClick}>next anecdotes</button>
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]}</p>
+      <p>{selectedPoints}</p>
+      <button onClick={handleVote}>vote</button>
+      <button onClick={handleNextAnecdote}>next anecdote</button>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[mostVotes]}</p>
+      <p>has {points[mostVotes]} votes</p>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

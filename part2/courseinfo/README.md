@@ -1,7 +1,8 @@
 # 2.1: Course information step 6
 
 <img width="624" alt="image" src="https://github.com/user-attachments/assets/1894ae85-d434-4af2-a9d8-8c5d9302da47">
-```
+
+```jsx
 const Course = ({course}) => {
   console.log(course)
   console.log(course.name)
@@ -34,8 +35,6 @@ const Part =({part}) =>{
     <p > {part.name+' '+ part.exercises} </p>
   )
 }
-
-
 
 const App = () => {
   const course = {

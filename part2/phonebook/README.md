@@ -111,7 +111,12 @@ export default App
 ```
 # 2.7: The Phonebook Step 2
 ```
-alert(newName+' is already added to phonebook!');
+    const person = persons.find(person => person.name.toLowerCase() === newName.toLowerCase() )
+
+    if (person){
+      alert(newName+' is already added to phonebook!');
+      return;
+    }
 ```
 # 2.8: The Phonebook Step 3
 ![image](https://github.com/user-attachments/assets/b0fd79d7-3a04-4a1b-adc9-2e0cfe5335e2)

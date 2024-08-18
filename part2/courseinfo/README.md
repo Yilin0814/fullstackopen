@@ -2,7 +2,7 @@
 
 <img width="624" alt="image" src="https://github.com/user-attachments/assets/1894ae85-d434-4af2-a9d8-8c5d9302da47">
 
-App.jsx
+## App.jsx
 ```jsx
 const Course = ({course}) => {
   console.log(course)
@@ -64,4 +64,34 @@ const App = () => {
 }
 
 export default App
+```
+# 2.2: Course information step 7
+<img width="650" alt="image" src="https://github.com/user-attachments/assets/722b3a4c-0944-405c-be10-74fa3ca0c22a">
+
+## App.jsx
+```jsx
+const Course = ({course}) => {
+  console.log(course)
+  console.log(course.name)
+  return (
+    <div>
+      <Header name={course.name} />
+      <Content parts={course.parts}/>
+      <Total parts={course.parts}/>
+    </div>
+  )
+}
+
+
+const Total = ({parts}) => {
+  console.log('Total:',parts)
+  
+  const all_exercises = parts.reduce((sum, part) => sum + part.exercises, 0);
+
+  return (      
+    <b> total of {all_exercises} exercises </b>
+  )
+  
+}
+
 ```

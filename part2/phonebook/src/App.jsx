@@ -5,6 +5,8 @@ const App = (props) => {
   const [persons, setPersons] = useState(props.persons)
   const [newName, setNewName] = useState('') 
   const [newNumber, setNewNumber] = useState('') 
+  const [filterName, setFilterName] = useState('') 
+  
   // const [showAll, setShowAll] = useState(true)
 
   const addPhonebook = (event) => {
@@ -16,34 +18,54 @@ const App = (props) => {
     }
     console.log('button clicked', event.target)
 
+    const person = persons.find(person => person.name.toLowerCase() === newName.toLowerCase() )
+
+    if (person){
+      alert(newName+' is already added to phonebook!');
+      return;
+    }
+
+
     setPersons(persons.concat(noteObject))
     setNewName('')
     setNewNumber('')
-    alert(newName+' is already added to phonebook!');
+    
   }
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
+    console.log('handleNameChange: ',event.target.value)
     setNewName(event.target.value)
   }
+
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
+    console.log('handleNumberChange: ',event.target.value)
     setNewNumber(event.target.value)
   }
 
-  // const notesToShow = showAll
-  // ? notes
-  // : notes.filter(note => note.important )
-
+  const handleFilterNameChange = (event) => {
+    console.log('handleFilterNameChange: ',event.target.value)
+    setFilterName(event.target.value)
+  }
+  const personsToShow = filterName ===''
+   ? persons
+   : persons.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase() ))
 
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h2>Phonebook</h2>
+      <div>
+        <p style={{ display: 'inline'}}>filter shown with: </p>
+        <input
+          value={filterName}
+          onChange={handleFilterNameChange}
+        />
+      </div>
       {/* <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
         </button>
       </div> */}
+      <h3>add a new</h3>
       <form onSubmit={addPhonebook}>
         <div>
           <p style={{ display: 'inline'}}>name: </p>
@@ -62,9 +84,9 @@ const App = (props) => {
         <button type="submit">add</button>
       </form>  
 
-      <h1>Numbers</h1>
+      <h3>Numbers</h3>
       <div>
-        {persons.map(person => 
+        {personsToShow.map(person => 
           <Note key={person.id} person={person} />
         )}
       </div>

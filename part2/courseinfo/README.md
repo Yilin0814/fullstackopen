@@ -2,6 +2,7 @@
 
 <img width="624" alt="image" src="https://github.com/user-attachments/assets/1894ae85-d434-4af2-a9d8-8c5d9302da47">
 
+App.jsx
 ```jsx
 const Course = ({course}) => {
   console.log(course)

@@ -220,3 +220,169 @@ export default App
       </div>
 
 ```
+# 2.10: The Phonebook Step 5
+## main.jsx
+```
+import ReactDOM from 'react-dom/client'
+
+import App from './App'
+
+const persons = [
+    ...
+]
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <App persons={persons} />
+)
+```
+
+## App.jsx
+```
+import { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+
+const App = (props) => {
+  const [persons, setPersons] = useState(props.persons)
+  const [filterName, setFilterName] = useState('') 
+
+  return (
+    <div>
+      <h2>Phonebook</h2>
+      <Filter filterName={filterName} setFilterName={setFilterName}/>
+
+
+      <h3>add a new</h3>
+      <PersonForm persons={persons} setPersons={setPersons}/>
+
+
+      <h3>Numbers</h3>
+      <Persons persons={persons} filterName={filterName}/>
+    </div>
+  )
+}
+
+export default App 
+```
+
+## components/Filter.jsx
+```
+const Filter =(props)=>{
+    const filterName = props.filterName
+    const setFilterName = props.setFilterName
+  
+    const handleFilterNameChange = (event) => {
+      console.log('handleFilterNameChange: ',event.target.value)
+      setFilterName(event.target.value)
+    }
+  
+    return (
+      <div>
+        <p style={{ display: 'inline'}}>filter shown with: </p>
+        <input
+          value={filterName}
+          onChange={handleFilterNameChange}
+        />
+      </div>
+    )
+  }
+  export default Filter
+```
+## components/PersonForm.jsx
+```
+import { useState } from 'react'
+const PersonForm = (props) => {
+    const persons=props.persons
+    const setPersons=props.setPersons
+  
+    const [newName, setNewName] = useState('') 
+    const [newNumber, setNewNumber] = useState('') 
+  
+    const handleNameChange = (event) => {
+      console.log('handleNameChange: ',event.target.value)
+      setNewName(event.target.value)
+    }
+  
+    const handleNumberChange = (event) => {
+      console.log('handleNumberChange: ',event.target.value)
+      setNewNumber(event.target.value)
+    }
+  
+  
+    const addPhonebook = (event) => {
+      event.preventDefault()
+      const noteObject = {
+        name: newName,
+        number: newNumber,
+        id: String(persons.length + 1),
+      }
+      console.log('button clicked', event.target)
+  
+      const person = persons.find(person => person.name.toLowerCase() === newName.toLowerCase() )
+  
+      if (person){
+        alert(newName+' is already added to phonebook!');
+        return;
+      }
+  
+  
+      setPersons(persons.concat(noteObject))
+      setNewName('')
+      setNewNumber('')
+      
+    }
+  
+    return (
+      <form onSubmit={addPhonebook}>
+      <div>
+        <p style={{ display: 'inline'}}>name: </p>
+        <input
+          value={newName}
+          onChange={handleNameChange}
+        />
+      </div>
+      <div>
+        <p style={{ display: 'inline'}}>number: </p>
+        <input
+          value={newNumber}
+          onChange={handleNumberChange}
+        />
+      </div>
+      <button type="submit">add</button>
+    </form>  
+    )
+  }
+  export default PersonForm
+```
+## components/Persons.jsx
+```
+import Note from './Note'
+
+const Persons =(props) =>{
+    const persons = props.persons
+    const filterName = props.filterName
+    const personsToShow = filterName ===''
+     ? persons
+     : persons.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase() ))
+  
+    return(
+      <div>
+        {personsToShow.map(person => 
+          <Note key={person.id} person={person} />
+        )}
+      </div>
+    )
+  }
+  export default Persons
+```
+## components/Note.jsx
+```
+const Note = ({ person }) => {
+    return (
+      <p>{person.name}: {person.number}</p>
+    )
+  }
+  
+  export default Note
+```

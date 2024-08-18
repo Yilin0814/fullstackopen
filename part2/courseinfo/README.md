@@ -95,3 +95,23 @@ const Total = ({parts}) => {
 }
 
 ```
+
+# 2.4: Course information step 9
+<img width="582" alt="image" src="https://github.com/user-attachments/assets/75612bdd-5203-4635-990e-6ca652c50104">
+
+## App.jsx
+```jsx
+const App = () => {
+  const courses = [
+    ...
+  ]
+
+  return (
+    <div>
+      {
+      courses.map(course => <Course key={course.id} course={course} />)
+      }
+    </div>
+  )
+}
+```

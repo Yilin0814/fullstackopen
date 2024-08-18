@@ -3,24 +3,26 @@ import Note from './components/Note'
 
 const App = (props) => {
   const [persons, setPersons] = useState(props.persons)
-  const [newPerson, setNewPerson] = useState('') 
+  const [newName, setNewName] = useState('') 
   // const [showAll, setShowAll] = useState(true)
 
   const addPhonebook = (event) => {
     event.preventDefault()
     const noteObject = {
-      name: newPerson,
+      name: newName,
       number: '+000 9008080',
       id: String(persons.length + 1),
     }
     console.log('button clicked', event.target)
+
     setPersons(persons.concat(noteObject))
-    setNewPerson('')
+    setNewName('')
+    alert(newName+' is already added to phonebook!');
   }
 
   const handleNoteChange = (event) => {
     console.log(event.target.value)
-    setNewPerson(event.target.value)
+    setNewName(event.target.value)
   }
 
   // const notesToShow = showAll
@@ -40,7 +42,7 @@ const App = (props) => {
         <div>
           <p style={{ display: 'inline'}}>name: </p>
           <input
-            value={newPerson}
+            value={newName}
             onChange={handleNoteChange}
           />
         </div>

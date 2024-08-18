@@ -110,6 +110,8 @@ const App = (props) => {
 export default App 
 ```
 # 2.7: The Phonebook Step 2
+![image](https://github.com/user-attachments/assets/158dd219-3344-4adc-889b-ac89b7991d88)
+
 ```
     const person = persons.find(person => person.name.toLowerCase() === newName.toLowerCase() )
 
@@ -196,4 +198,25 @@ const App = (props) => {
 }
 
 export default App 
+```
+# 2.9*: The Phonebook Step 4
+```
+...
+
+  const handleFilterNameChange = (event) => {
+    console.log('handleFilterNameChange: ',event.target.value)
+    setFilterName(event.target.value)
+  }
+  const personsToShow = filterName ===''
+   ? persons
+   : persons.filter(person => person.name.toLowerCase().includes(filterName.toLowerCase() ))
+
+...
+
+      <div>
+        {personsToShow.map(person => 
+          <Note key={person.id} person={person} />
+        )}
+      </div>
+
 ```

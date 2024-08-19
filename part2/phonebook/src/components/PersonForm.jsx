@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import axios from 'axios'
+import personService  from "../services/person"
 
 const PersonForm = (props) => {
     const persons=props.persons
@@ -23,24 +24,45 @@ const PersonForm = (props) => {
       const personObject = {
         name: newName,
         number: newNumber,
-        id: String(persons.length + 1),
+        id: String(Math.max(...persons.map(person => Number(person.id))) + 1),
       }
       console.log('button clicked', event.target)
   
       const person = persons.find(person => person.name.toLowerCase() === newName.toLowerCase() )
   
       if (person){
-        alert(newName+' is already added to phonebook!');
+        if (window.confirm(newName+' is already added to phonebook, replace the old number with a new one?')) {
+          console.log('user confirm replace.')
+          const changedPerson = { ...person, number: newNumber}
+          personService
+          .update(person.id,changedPerson)
+          .then(response => {
+            console.log('number changed')
+            setPersons(persons.map(p => p.id !== person.id ? p : changedPerson))
+          })
+          .catch((error) => {
+            setMessage({ text: error.response.data.error, type: "error" });
+            setTimeout(() => setMessage(null), 5000);
+            console.error(error);
+          })
+        }
+        setNewName('')
+        setNewNumber('')
         return;
       }
 
-      axios
-      .post('http://localhost:3001/persons', personObject)
+      personService
+      .create(personObject)
       .then(response => {
         console.log(response)
         setPersons(persons.concat(personObject))
         setNewName('')
         setNewNumber('')
+      })
+      .catch((error) => {
+        setMessage({ text: error.response.data.error, type: "error" });
+        setTimeout(() => setMessage(null), 5000);
+        console.error(error);
       })
     }
   

@@ -386,3 +386,8 @@ const Note = ({ person }) => {
   
   export default Note
 ```
+
+# jsonserver (terminal)
+```
+npx json-server --port 3001 --watch db.json
+```

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import axios from 'axios'
+
 const PersonForm = (props) => {
     const persons=props.persons
     const setPersons=props.setPersons
@@ -16,10 +18,9 @@ const PersonForm = (props) => {
       setNewNumber(event.target.value)
     }
   
-  
     const addPhonebook = (event) => {
       event.preventDefault()
-      const noteObject = {
+      const personObject = {
         name: newName,
         number: newNumber,
         id: String(persons.length + 1),
@@ -32,12 +33,15 @@ const PersonForm = (props) => {
         alert(newName+' is already added to phonebook!');
         return;
       }
-  
-  
-      setPersons(persons.concat(noteObject))
-      setNewName('')
-      setNewNumber('')
-      
+
+      axios
+      .post('http://localhost:3001/persons', personObject)
+      .then(response => {
+        console.log(response)
+        setPersons(persons.concat(personObject))
+        setNewName('')
+        setNewNumber('')
+      })
     }
   
     return (

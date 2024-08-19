@@ -387,7 +387,71 @@ const Note = ({ person }) => {
   export default Note
 ```
 
-# jsonserver (terminal)
+# 2.11: The Phonebook Step 6
+![image](https://github.com/user-attachments/assets/15f49620-d8b5-437d-9ebb-77aec8f488a6)
+<img width="367" alt="image" src="https://github.com/user-attachments/assets/3cdd5728-a3d4-4c72-89f9-0b37602e37c9">
+
+## jsonserver (terminal)
 ```
+sudo npm install -g json-server
 npx json-server --port 3001 --watch db.json
+```
+## axios(terminal)
+```
+npm install axios
+```
+## json server with npm(terminal)
+```
+npm install json-server --save-dev
+```
+## package.json
+```
+{
+...
+  "scripts": {
+...
+    "server": "json-server -p3001 --watch db.json"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+...
+  },
+...
+}
+```
+## start server & dev(terminal)
+```
+npm run server
+npm run dev
+```
+## App.jsx
+```
+import { useState ,useEffect} from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import axios from 'axios'
+
+const App = (props) => {
+  const [persons, setPersons] = useState([])
+  const [filterName, setFilterName] = useState('') 
+
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }, [])
+  console.log('render', persons.length, 'persons')
+
+
+  return (
+...
+  )
+}
+
+export default App 
 ```

@@ -5,7 +5,10 @@ import personService  from "../services/person"
 const PersonForm = (props) => {
     const persons=props.persons
     const setPersons=props.setPersons
-  
+
+    const setMessage=props.setMessage
+    const setClassName=props.setClassName
+
     const [newName, setNewName] = useState('') 
     const [newNumber, setNewNumber] = useState('') 
   
@@ -39,9 +42,13 @@ const PersonForm = (props) => {
           .then(response => {
             console.log('number changed')
             setPersons(persons.map(p => p.id !== person.id ? p : changedPerson))
+            setMessage(newName+'\'s number changed');
+            setClassName('success');
+            setTimeout(() => setMessage(null), 5000);
           })
           .catch((error) => {
-            setMessage({ text: error.response.data.error, type: "error" });
+            setMessage('Information of '+newName+' has already been removed from server');
+            setClassName('error');
             setTimeout(() => setMessage(null), 5000);
             console.error(error);
           })
@@ -58,9 +65,14 @@ const PersonForm = (props) => {
         setPersons(persons.concat(personObject))
         setNewName('')
         setNewNumber('')
+
+        setMessage('Added '+newName);
+        setClassName('success');
+        setTimeout(() => setMessage(null), 5000);
       })
       .catch((error) => {
-        setMessage({ text: error.response.data.error, type: "error" });
+        setMessage('Information of '+newName+' has already been removed from server');
+        setClassName('error');
         setTimeout(() => setMessage(null), 5000);
         console.error(error);
       })

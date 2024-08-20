@@ -1,5 +1,6 @@
-# Terminal
+![Screen Recording 2024-08-20 at 15 52 49](https://github.com/user-attachments/assets/17ab1f0b-9835-4c73-bbe0-d00ffd9de365)
 
+# Terminal
 ```
 npm create vite@latest phonebook -- --template react
 cd phonebook

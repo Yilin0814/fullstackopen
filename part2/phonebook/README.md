@@ -1,5 +1,6 @@
-# Terminal
+![Screen Recording 2024-08-20 at 15 52 49](https://github.com/user-attachments/assets/17ab1f0b-9835-4c73-bbe0-d00ffd9de365)
 
+# Terminal
 ```
 npm create vite@latest phonebook -- --template react
 cd phonebook
@@ -525,4 +526,60 @@ const Persons =(props) =>{
     )
   }
   export default Persons
+```
+# 2.15*: The Phonebook step 10
+![image](https://github.com/user-attachments/assets/f8ffa486-68b8-4e23-bc2f-0d6afb0c4983)
+
+```
+import { useState ,useEffect} from 'react'
+import axios from 'axios'
+import personService  from "../services/person"
+
+const PersonForm = (props) => {
+        ...
+    const addPhonebook = (event) => {
+      ...
+      const person = persons.find(person => person.name.toLowerCase() === newName.toLowerCase() )
+  
+      if (person){
+        if (window.confirm(newName+' is already added to phonebook, replace the old number with a new one?')) {
+          console.log('user confirm replace.')
+          const changedPerson = { ...person, number: newNumber}
+          personService
+          .update(person.id,changedPerson)
+          .then(response => {
+            console.log('number changed')
+            setPersons(persons.map(p => p.id !== person.id ? p : changedPerson))
+          })
+          .catch((error) => {
+            setMessage({ text: error.response.data.error, type: "error" });
+            setTimeout(() => setMessage(null), 5000);
+            console.error(error);
+          })
+        }
+        setNewName('')
+        setNewNumber('')
+        return;
+      }
+
+      personService
+      .create(personObject)
+      .then(response => {
+        console.log(response)
+        setPersons(persons.concat(personObject))
+        setNewName('')
+        setNewNumber('')
+      })
+      .catch((error) => {
+        setMessage({ text: error.response.data.error, type: "error" });
+        setTimeout(() => setMessage(null), 5000);
+        console.error(error);
+      })
+    }
+  
+    return (
+      ...
+    )
+  }
+  export default PersonForm
 ```
